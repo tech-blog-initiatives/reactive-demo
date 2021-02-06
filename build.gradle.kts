@@ -3,18 +3,22 @@
  */
 
 plugins {
-    java
     id("org.springframework.boot") version "2.4.1"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    kotlin("jvm") version "1.4.30"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.4.30"
 }
 
 apply(plugin = "io.spring.dependency-management")
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.+")
+    implementation("org.flywaydb:flyway-core:7.5.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
 }
@@ -22,9 +26,14 @@ dependencies {
 group = "org.tech.blog"
 version = "0.0.1-SNAPSHOT"
 description = "reactive-demo"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
 
-
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
