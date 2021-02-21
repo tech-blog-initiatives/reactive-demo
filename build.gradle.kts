@@ -17,8 +17,10 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.+")
-    implementation("org.flywaydb:flyway-core:7.5.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
 }
